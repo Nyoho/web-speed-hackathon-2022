@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import styled from "styled-components";
 
@@ -7,6 +6,8 @@ import { EntryCombination } from "../../../../../components/displays/EntryCombin
 import { Stack } from "../../../../../components/layouts/Stack";
 import { BreakPoint, Color, Space } from "../../../../../styles/variables";
 import { OddsMarker } from "../OddsMarker";
+
+const take = (arr, qty = 1) => [...arr].splice(0, qty)
 
 const Wrapper = styled.ol`
   display: grid;
@@ -66,8 +67,9 @@ const RankNo = styled.div`
 
 /** @type {React.VFC<Props>} */
 export const OddsRankingList = ({ isRaceClosed, odds, onClickOdds }) => {
-  const sortedOdds = _.take(
-    _.sortBy(odds, (item) => item.odds),
+  const preSortedOdds = odds.sort((a, b) => a.odds - b.odds);
+  const sortedOdds = take(
+    preSortedOdds,
     50,
   );
 
