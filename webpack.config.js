@@ -6,6 +6,7 @@ const environment = process.env.NODE_ENV || 'development';
 const CopyPlugin = require("copy-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 const TerserPlugin = require("terser-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function abs(...args) {
   return path.join(__dirname, ...args);
@@ -63,6 +64,7 @@ module.exports = [
       new CopyPlugin({
         patterns: [{ from: PUBLIC_ROOT, to: DIST_PUBLIC }],
       }),
+      ...(environment === 'production' ? [] : [new BundleAnalyzerPlugin()]),
     ],
     resolve: {
       extensions: [".js", ".jsx"],
