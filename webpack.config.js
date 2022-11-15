@@ -5,6 +5,7 @@ const environment = process.env.NODE_ENV || 'development';
 
 const CopyPlugin = require("copy-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
+const TerserPlugin = require("terser-webpack-plugin");
 
 function abs(...args) {
   return path.join(__dirname, ...args);
@@ -21,6 +22,9 @@ module.exports = [
     devtool: environment === 'production' ? false : 'inline-source-map',
     entry: path.join(SRC_ROOT, "client/index.jsx"),
     mode: environment,
+    optimization: {
+      minimize: true,
+    },
     module: {
       rules: [
         {
@@ -71,7 +75,16 @@ module.exports = [
     externals: [nodeExternals()],
     mode: environment,
     optimization: {
-      minimize: false,
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: true,
+            keep_classnames: true,
+            keep_fnames: true,
+          },
+        }),
+      ],
     },
     module: {
       rules: [
