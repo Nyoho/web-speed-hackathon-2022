@@ -39,10 +39,11 @@ const calcImageSize = (cv, img) => {
 /** @type {React.VFC<Props>} */
 export const TrimmedImage = ({ height, src, width }) => {
   const [dataUrl, setDataUrl] = useState(null);
+  const imagePath = src.replace(/.jpg/, '.webp');
 
   useEffect(() => {
     const img = new Image();
-    img.src = src;
+    img.src = imagePath;
     img.onload = () => {
       const canvas = document.createElement("canvas");
       canvas.width = width;
