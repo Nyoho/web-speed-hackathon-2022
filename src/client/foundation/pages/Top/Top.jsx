@@ -1,5 +1,5 @@
 import moment from "moment-timezone";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -146,7 +146,9 @@ export const Top = () => {
 
   return (
     <Container>
-      {heroImageUrl !== null && <HeroImage url={heroImageUrl} />}
+      <Suspense fallback={<p>loading...</p>}>
+        <HeroImage url={heroImageUrl} />
+      </Suspense>
 
       <Spacer mt={Space * 2} />
       {userData && (
