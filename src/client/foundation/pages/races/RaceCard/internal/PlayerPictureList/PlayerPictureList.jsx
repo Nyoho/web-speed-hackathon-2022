@@ -26,14 +26,13 @@ const PlayerName = styled.span`
 
 /** @type {React.VFC<ItemProps>} */
 const Item = ({ image, name, number }) => {
-  const imagePath = image.replace(/.jpg/, '.webp')
   
   return (
     <Stack gap={Space * 1}>
       <TrimmedImage
         alt={`${name}選手のプロフィール写真`}
         height={100}
-        src={imagePath}
+        src={image}
         width={100}
       />
 
