@@ -8,6 +8,7 @@ const nodeExternals = require("webpack-node-externals");
 const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 function abs(...args) {
   return path.join(__dirname, ...args);
@@ -68,6 +69,9 @@ module.exports = [
       // new BundleAnalyzerPlugin(),
       new MomentTimezoneDataPlugin({
         matchCountries: 'JP'
+      }),
+      new MomentLocalesPlugin({
+        localesToKeep: ['ja']
       }),
     ],
     resolve: {
