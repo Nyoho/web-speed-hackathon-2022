@@ -36,7 +36,7 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
     method: "POST",
   });
 
-  useEffect(() => {
+  const handleCodeOnFocus = useCallback((e) => {
     fetch('/api/zengin-code')
       .then(res => res.json())
       .then(data => { setZenginCode(data) })
@@ -93,6 +93,7 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
               <input
                 list="ChargeDialog-bank-list"
                 onChange={handleCodeChange}
+                onFocus={handleCodeOnFocus}
                 value={bankCode}
               />
             </label>
