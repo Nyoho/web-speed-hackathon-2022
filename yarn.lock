@@ -4565,7 +4565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^3.3.1":
+"find-cache-dir@npm:^3.0.0, find-cache-dir@npm:^3.3.1":
   version: 3.3.2
   resolution: "find-cache-dir@npm:3.3.2"
   dependencies:
@@ -6455,6 +6455,19 @@ __metadata:
   version: 1.4.0
   resolution: "modern-css-reset@npm:1.4.0"
   checksum: b515d1b669251ec767d948304386c74375da694355ae1508db06f2e79e271083925b6181f95ca988f58c6d749cde0648df7826b36e5494c32a623c2fd3b19476
+  languageName: node
+  linkType: hard
+
+"moment-timezone-data-webpack-plugin@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "moment-timezone-data-webpack-plugin@npm:1.5.1"
+  dependencies:
+    find-cache-dir: ^3.0.0
+    make-dir: ^3.0.0
+  peerDependencies:
+    moment-timezone: ">= 0.1.0"
+    webpack: 4.x.x || 5.x.x
+  checksum: 2498cc5530600e0ad7c2f64830d52e3f240eeeb59a35ee84f76d8f675ec626fc9d524cb8866cad7919c1c689427f3cdf6f226594c6ce2a4ffa1b2c7d3bd71ca6
   languageName: node
   linkType: hard
 
@@ -9671,6 +9684,7 @@ __metadata:
     framer-motion: ^6.2.8
     modern-css-reset: ^1.4.0
     moment-timezone: ^0.5.34
+    moment-timezone-data-webpack-plugin: ^1.5.1
     nodemon: ^2.0.15
     npm-run-all: ^4.1.5
     pino-pretty: ^7.3.0
