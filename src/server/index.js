@@ -10,17 +10,20 @@ import { spaRoute } from "./routes/spa.js";
 import { createConnection } from "./typeorm/connection.js";
 import { initialize } from "./typeorm/initialize.js";
 
+import pino from 'pino'
+
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 const server = fastify({
   logger: IS_PRODUCTION
     ? false
-    : {
-        prettyPrint: {
-          ignore: "pid,hostname",
-          translateTime: "SYS:HH:MM:ss",
-        },
+    : pino({
+      transport: {
+        target: 'pino-pretty'
       },
+    })
+  // ignore: "pid,hostname",
+  // translateTime: "SYS:HH:MM:ss",
 });
 server.register(fastifySensible);
 
