@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { EntryCombination } from "../../../../../components/displays/EntryCombination";
 import { Color, FontSize, Space } from "../../../../../styles/variables";
 
+import { faTicketAlt } from '@fortawesome/free-solid-svg-icons/faTicketAlt'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const ItemWrapper = styled.tr`
   padding: ${Space * 1}px ${Space * 2}px;
 
@@ -60,7 +63,7 @@ export const BettingTicketList = ({ children }) => {
   if (React.Children.count(children) === 0) {
     return (
       <Placeholder>
-        <i className="fas fa-ticket-alt" />
+        <FontAwesomeIcon icon={faTicketAlt} />
         <div>購入した拳券はありません</div>
       </Placeholder>
     );
