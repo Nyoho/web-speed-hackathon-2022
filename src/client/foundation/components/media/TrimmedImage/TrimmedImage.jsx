@@ -38,33 +38,7 @@ const calcImageSize = (cv, img) => {
 
 /** @type {React.VFC<Props>} */
 export const TrimmedImage = ({ height, src, width }) => {
-  const [dataUrl, setDataUrl] = useState(null);
   const imagePath = src.replace(/.jpg/, '.webp');
 
-  useEffect(() => {
-    const img = new Image();
-    img.src = imagePath;
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-
-      const size = calcImageSize(
-        { height: canvas.height, width: canvas.width },
-        { height: img.height, width: img.width },
-      );
-
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(
-        img,
-        -(size.width - canvas.width) / 2,
-        -(size.height - canvas.height) / 2,
-        size.width,
-        size.height,
-      );
-      setDataUrl(canvas.toDataURL());
-    };
-  }, [height, src, width]);
-
-  return <img src={dataUrl} width={width} height={height} />;
+  return <img src={imagePath} width={width} height={height} style={{ objectFit: 'cover' }} />;
 };
