@@ -40,5 +40,5 @@ const calcImageSize = (cv, img) => {
 export const TrimmedImage = ({ height, src, width }) => {
   const imagePath = src.replace(/.jpg/, '.webp');
 
-  return <img src={imagePath} width={width} height={height} style={{ objectFit: 'cover' }} />;
+  return <img src={imagePath} style={{ width: `${width}px`, maxHeight: `${height}px`, aspectRatio: `${width} / ${height}`, objectFit: 'cover' }} />;
 };
