@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import React, { forwardRef, useCallback, useState, useEffect } from "react";
 
 import { Dialog } from "../../../../components/layouts/Dialog";
@@ -88,6 +87,16 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
         <Spacer mt={Space * 2} />
         <form method="dialog">
           <Stack gap={Space * 1}>
+            <style>
+              {`@keyframes appearingOpacity {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }`}
+            </style>
             <label>
               銀行コード
               <input
@@ -105,9 +114,9 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
             </datalist>
 
             {bank != null && (
-              <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+              <div style={{ animation: 'appearingOpacity 1s both' }}>
                 銀行名: {bank.name}銀行
-              </motion.div>
+              </div>
             )}
 
             <label>
@@ -129,9 +138,9 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
             </datalist>
 
             {branch && (
-              <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+              <div style={{ animation: 'appearingOpacity 1s both' }}>
                 支店名: {branch.name}
-              </motion.div>
+              </div>
             )}
 
             <label>
