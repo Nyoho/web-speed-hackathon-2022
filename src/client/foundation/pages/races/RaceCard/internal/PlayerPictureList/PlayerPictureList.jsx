@@ -34,6 +34,7 @@ const Item = ({ image, name, number }) => {
         height={100}
         src={image}
         width={100}
+        loading="lazy"
       />
 
       <Stack horizontal alignItems="center" gap={Space / 2} wrap="wrap">
