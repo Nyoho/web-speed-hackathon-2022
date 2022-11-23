@@ -1,4 +1,3 @@
-import moment from "moment-timezone";
 import React, { useCallback, useEffect, useRef, useState, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -16,6 +15,13 @@ import { authorizedJsonFetcher, jsonFetcher } from "../../utils/HttpUtils";
 import { ChargeDialog } from "./internal/ChargeDialog";
 import { HeroImage } from "./internal/HeroImage";
 import { RecentRaceList } from "./internal/RecentRaceList";
+
+function date2string(d) {
+  const y = d.getFullYear();
+  const mm = ('0' + (d.getMonth() + 1)).slice(-2);
+  const dd = ('0' + d.getDate()).slice(-2);
+  return `${y}-${mm}-${dd}`
+}
 
 /**
  * @param {Model.Race[]} races
@@ -76,8 +82,9 @@ function useTodayRacesWithAnimation(races) {
 
 /** @type {React.VFC} */
 export const Top = () => {
-  const { date = moment().format("YYYY-MM-DD") } = useParams();
-
+  const { date = date2string(new Date()) } = useParams();
+  const offset = new Date().getTimezoneOffset() * 60 * 1000;
+  
   const ChargeButton = styled.button`
     background: ${Color.mono[700]};
     border-radius: ${Radius.MEDIUM};
@@ -115,10 +122,14 @@ export const Top = () => {
       ? [...raceData.races]
           .sort(
             (/** @type {Model.Race} */ a, /** @type {Model.Race} */ b) =>
-              moment(a.startAt) - moment(b.startAt),
+            Date.parse(a.startAt) - Date.parse(b.startAt),
           )
           .filter((/** @type {Model.Race} */ race) =>
-            isSameDay(race.startAt, date),
+            {
+              // current offset に修正して日付部分だけ取り出して比較する
+              const s = new Date(Date.parse(race.startAt) - offset).toISOString();
+              return s.slice(0,10) === date
+            },
           )
       : [];
   const todayRacesToShow = useTodayRacesWithAnimation(todayRaces);

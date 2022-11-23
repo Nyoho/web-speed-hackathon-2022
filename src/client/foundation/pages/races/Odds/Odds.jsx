@@ -1,4 +1,3 @@
-import moment from "moment-timezone";
 import React, { useCallback, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -60,7 +59,7 @@ export const Odds = () => {
     [],
   );
 
-  const isRaceClosed = data === null ? false : moment(data.closeAt).isBefore(new Date());
+  const isRaceClosed = data === null ? false : new Date(data.closeAt) < new Date();
 
   return (
     <Container>

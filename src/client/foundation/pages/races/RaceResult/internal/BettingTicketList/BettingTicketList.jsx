@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { EntryCombination } from "../../../../../components/displays/EntryCombination";
 import { Color, FontSize, Space } from "../../../../../styles/variables";
 
-import { faTicketAlt } from '@fortawesome/free-solid-svg-icons/faTicketAlt'
+import { faTicket } from '@fortawesome/free-solid-svg-icons/faTicket'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ItemWrapper = styled.tr`
@@ -63,7 +63,7 @@ export const BettingTicketList = ({ children }) => {
   if (React.Children.count(children) === 0) {
     return (
       <Placeholder>
-        <FontAwesomeIcon icon={faTicketAlt} />
+        <FontAwesomeIcon icon={faTicket} />
         <div>購入した拳券はありません</div>
       </Placeholder>
     );

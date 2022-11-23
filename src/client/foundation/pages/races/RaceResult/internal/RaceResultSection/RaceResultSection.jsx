@@ -25,8 +25,7 @@ const Wrapper = styled.div`
 export const RaceResultSection = () => {
   return (
     <Wrapper>
-        <FontAwesomeIcon icon={faHandPeace} />
-      <i className="far fa-hand-peace" />
+      <FontAwesomeIcon icon={faHandPeace} />
       <div>結果はまだありません</div>
     </Wrapper>
   );

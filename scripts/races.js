@@ -1,8 +1,14 @@
-import moment from "moment-timezone";
 import { v4 as uuid } from "uuid";
 
 import { Race } from "../src/model/index.js";
 import { createConnection } from "../src/server/typeorm/connection.js";
+
+function date2string(d) {
+  const y = d.getFullYear();
+  const mm = ('0' + (d.getMonth() + 1)).slice(-2);
+  const dd = ('0' + d.getDate()).slice(-2);
+  return `${y}-${mm}-${dd}`
+}
 
 export async function insertRaces(startDate, endDate) {
   const connection = await createConnection();
@@ -42,31 +48,29 @@ export async function insertRaces(startDate, endDate) {
     "ケベフセヌエフ賞",
   ];
 
-  const start = moment(`${startDate}T00:30:00.000+09:00`);
-  const end = moment(`${endDate}T00:30:00.000+09:00`);
-  const days = end.diff(start, "days");
+  const start = Date.parse(`${startDate}T00:30:00.000+09:00`);
+  const end = Date.parse(`${endDate}T00:30:00.000+09:00`);
+  const days = (end - start) / (60 * 60 * 24 * 1000);
   process.stdout.write(
-    `Creating races from ${start.format("YYYY-MM-DD")} to ${end.format(
-      "YYYY-MM-DD",
-    )}...`,
+    `Creating races from ${date2string(new Date(start))} to ${date2string(new Date(end))}...`,
   );
 
   const races = [];
 
   for (let i = 0; i <= days; i++) {
     for (let j = 0; j < 24; j++) {
-      const startAt = moment(start).add(i, "days").add(j, "hours");
+      const startAt = start + i * (60*60*24 * 1000) + j * (60*60*1000); // ミリ秒単位の整数
 
       races.push(
         new Race({
-          closeAt: startAt.subtract(10, "minutes").toDate(),
+          closeAt: new Date(startAt - 10 * 60 * 1000),
           id: uuid(),
           image: `/assets/images/races/${`${((i * 24 + j) % 20) + 1}`.padStart(
             3,
             "0",
           )}.webp`,
           name: NAMES[Math.floor(Math.random() * NAMES.length)],
-          startAt: startAt.toDate(),
+          startAt: new Date(startAt),
         }),
       );
     }
