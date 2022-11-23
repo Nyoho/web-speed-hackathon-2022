@@ -81,6 +81,8 @@ const Item = ({ race }) => {
     };
   }, [race.id, startAnimation, abortAnimation, resetAnimation]);
 
+  const smallImage = race.image.replace(/.jpg/, '-s.webp');
+  
   return (
     <ItemWrapper $opacity={opacity}>
       <Stack horizontal alignItems="center" justifyContent="space-between">
@@ -93,7 +95,7 @@ const Item = ({ race }) => {
 
         <Stack.Item grow={0} shrink={0}>
           <Stack horizontal alignItems="center" gap={Space * 2}>
-            <TrimmedImage height={100} src={race.image} width={100} loading="lazy" />
+            <TrimmedImage height={100} src={smallImage} width={100} loading="lazy" />
             <RaceButton to={`/races/${race.id}/race-card`}>投票</RaceButton>
           </Stack>
         </Stack.Item>
