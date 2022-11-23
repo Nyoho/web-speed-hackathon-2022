@@ -142,13 +142,10 @@ export const Top = () => {
           )
       : [];
   const todayRacesToShow = useTodayRacesWithAnimation(todayRaces);
-  const heroImageUrl = '/assets/images/hero.webp' //useHeroImage(todayRaces);
 
   return (
     <Container>
-      <Suspense fallback={<p>loading...</p>}>
-        <HeroImage url={heroImageUrl} />
-      </Suspense>
+      <HeroImage url='/assets/images/hero.webp' />
 
       <Spacer mt={Space * 2} />
       {userData && (
