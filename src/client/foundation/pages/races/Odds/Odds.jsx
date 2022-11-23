@@ -67,7 +67,7 @@ export const Odds = () => {
       <Spacer mt={Space * 2} />
       <Heading as="h1">{data === null ? 'CyberTicket杯?' : data.name}</Heading>
       <p>
-        開始 {data === null ? '' : formatTime(data.startAt)} 締切 {data === null ? '' : formatTime(data.closeAt)}
+        開始 {data === null ? '??:??' : formatTime(data.startAt)} 締切 {data === null ? '??:??' : formatTime(data.closeAt)}
       </p>
 
       <Spacer mt={Space * 2} />
