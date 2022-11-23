@@ -60,18 +60,14 @@ export const Odds = () => {
     [],
   );
 
-  if (data == null) {
-    return <Container>Loading...</Container>;
-  }
-
-  const isRaceClosed = moment(data.closeAt).isBefore(new Date());
+  const isRaceClosed = data === null ? false : moment(data.closeAt).isBefore(new Date());
 
   return (
     <Container>
       <Spacer mt={Space * 2} />
-      <Heading as="h1">{data.name}</Heading>
+      <Heading as="h1">{data === null ? 'CyberTicket杯?' : data.name}</Heading>
       <p>
-        開始 {formatTime(data.startAt)} 締切 {formatTime(data.closeAt)}
+        開始 {data === null ? '' : formatTime(data.startAt)} 締切 {data === null ? '' : formatTime(data.closeAt)}
       </p>
 
       <Spacer mt={Space * 2} />
@@ -79,7 +75,7 @@ export const Odds = () => {
       <Section dark shrink>
         <LiveBadge>Live</LiveBadge>
         <Spacer mt={Space * 2} />
-        <TrimmedImage height={225} src={data.image} width={400} />
+        <TrimmedImage height={225} src={data === null ? '/assets/images/1x1.webp' : data.image} width={400} />
       </Section>
 
       <Spacer mt={Space * 2} />
@@ -97,31 +93,37 @@ export const Odds = () => {
 
         <Callout $closed={isRaceClosed}>
           <FontAwesomeIcon icon={faInfoCircle} />
-          {isRaceClosed
+          { data ?
+          ( isRaceClosed
             ? "このレースの投票は締め切られています"
-            : "オッズをクリックすると拳券が購入できます"}
+            : "オッズをクリックすると拳券が購入できます")
+            : '締め切り状況ロード中' }
         </Callout>
 
         <Spacer mt={Space * 4} />
         <Heading as="h2">オッズ表</Heading>
 
         <Spacer mt={Space * 2} />
+        { data &&
         <OddsTable
           entries={data.entries}
           isRaceClosed={isRaceClosed}
           odds={data.trifectaOdds}
           onClickOdds={handleClickOdds}
         />
-
+        }
+        
         <Spacer mt={Space * 4} />
         <Heading as="h2">人気順</Heading>
 
         <Spacer mt={Space * 2} />
+        { data &&
         <OddsRankingList
           isRaceClosed={isRaceClosed}
           odds={data.trifectaOdds}
           onClickOdds={handleClickOdds}
-        />
+          />
+        }
       </Section>
 
       <TicketVendingModal ref={modalRef} odds={oddsKeyToBuy} raceId={raceId} />
