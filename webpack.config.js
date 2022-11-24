@@ -26,6 +26,9 @@ module.exports = [
     entry: path.join(SRC_ROOT, "client/index.jsx"),
     mode: environment,
     optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
       minimize: true,
     },
     module: {
