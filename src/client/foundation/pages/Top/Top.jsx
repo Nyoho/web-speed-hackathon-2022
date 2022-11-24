@@ -103,7 +103,10 @@ export const Top = () => {
     authorizedJsonFetcher,
   );
 
-  const { data: raceData } = useFetch("/api/races", jsonFetcher);
+  const now = Date.parse(date)
+  const query_since = Math.floor((now - (24*60*60*1000))/1000)
+  const query_until = Math.floor((now + (24*60*60*1000))/1000)
+  const { data: raceData } = useFetch(`/api/races?since=${query_since}&until=${query_until}`, jsonFetcher);
 
   const handleClickChargeButton = useCallback(() => {
     if (chargeDialogRef.current === null) {
