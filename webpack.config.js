@@ -27,7 +27,7 @@ module.exports = [
     mode: environment,
     optimization: {
       splitChunks: {
-        chunks: 'all',
+        chunks: 'initial',
       },
       minimize: true,
     },
