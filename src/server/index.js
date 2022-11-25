@@ -46,13 +46,11 @@ server.addHook("onRequest", async (req, res) => {
   res.header("Connection", "close");
 });
 
-server.register(apiRoute, { prefix: "/api" });
-
 server.register(
   compressPlugin,
   { global: true }
-); // APIを先に定義することでAPIをcompressしない
-
+);
+server.register(apiRoute, { prefix: "/api" });
 server.register(spaRoute);
 
 const start = async () => {
