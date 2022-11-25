@@ -29,6 +29,7 @@ const LiveBadge = styled.span`
 /** @type {React.VFC} */
 export const RaceResult = () => {
   const { raceId } = useParams();
+  const { data: data0 } = useFetch(`/api/races/${raceId}/slim`, jsonFetcher);
   const { data } = useFetch(`/api/races/${raceId}`, jsonFetcher);
   const { data: ticketData } = useAuthorizedFetch(
     `/api/races/${raceId}/betting-tickets`,
@@ -38,9 +39,9 @@ export const RaceResult = () => {
   return (
     <Container>
       <Spacer mt={Space * 2} />
-      <Heading as="h1">{data === null ? 'ローディング杯' : data.name}</Heading>
+      <Heading as="h1">{data0 == null ? '杯名ローディング...' : data0.name }</Heading>
       <p>
-        開始 {data === null ? '??:??' : formatTime(data.startAt)} 締切 {data === null ? '??:??' : formatTime(data.closeAt)}
+        開始 {data0 === null ? '??:??' : formatTime(data0.startAt)} 締切 {data0 === null ? '??:??' : formatTime(data0.closeAt)}
       </p>
 
       <Spacer mt={Space * 2} />
@@ -48,7 +49,7 @@ export const RaceResult = () => {
       <Section dark shrink>
         <LiveBadge>Live</LiveBadge>
         <Spacer mt={Space * 2} />
-        <TrimmedImage height={225} src={data === null ? '/assets/images/1x1.webp' : data.image} width={400} />
+        <TrimmedImage height={225} src={data0 === null ? '/assets/images/1x1.webp' : data0.image} width={400} />
       </Section>
 
       <Spacer mt={Space * 2} />

@@ -101,6 +101,18 @@ export const apiRoute = async (fastify) => {
     return res.send(race);
   });
 
+  fastify.get("/races/:raceId/slim", async (req, res) => {
+    const repo = (await createConnection()).getRepository(Race);
+
+    const race = await repo.findOne(req.params.raceId);
+
+    if (race === undefined) {
+      throw fastify.httpErrors.notFound();
+    }
+
+    return res.send(race);
+  });
+
   fastify.get("/races/:raceId/betting-tickets", async (req, res) => {
     if (req.user == null) {
       throw fastify.httpErrors.unauthorized();
